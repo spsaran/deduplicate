@@ -22,10 +22,7 @@ public class DeDuplicate {
 									13,5,11,4,7,19,16,5,9,12,3,20,7,15,17,10,6,1,8,18,4,14,13,2,11};
 	
 	public static void main(String [] args) {
-		DeDuplicate dedup = new DeDuplicate();
-		dedup.removeDup(Arrays.copyOf(dedup.randomIntegers, dedup.randomIntegers.length)); //copy the original array
-		dedup.removeDupSet(dedup.randomIntegers);
-		dedup.removeDupLinkedSet(dedup.randomIntegers);
+				
 	}
 	
 	/**
@@ -35,19 +32,22 @@ public class DeDuplicate {
 	 */
 	public int[] removeDup(int[] arr) {
 		logger.log(Level.INFO, "DeDuplicate.removeDup:" + Arrays.toString(arr));
-		if ( null != arr ) {
+		if ( null != arr && 0 < arr.length ) {
 			int len = arr.length;
 			int[] newarr = new int[len];
 			Arrays.sort(arr); //quick sort
-			int latest = -1;
 			int i = 0;
+			int latest = arr[0];
+			newarr[i++] = latest;
 			for (int el: arr) {
 				if ( el != latest ) {
 					newarr[i++] = el;
 					latest = el;
 				}
 			}
-			newarr = Arrays.copyOf(newarr, i);
+			if ( i < len ) {
+				newarr = Arrays.copyOf(newarr, i);
+			}
 			logger.log(Level.INFO, "DeDuplicate.removeDup:" + Arrays.toString(newarr));
 			return newarr;
 		}
